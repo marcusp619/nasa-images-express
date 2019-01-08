@@ -1,11 +1,16 @@
 const express = require('express');
+const nasaImages = require('./images');
 const app = express();
 
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Pet Box';
+app.set('port', process.env.PORT || 3001);
 
-app.get('/', (request, response) => {
-  response.send('Oh hey Pet Box');
+app.locals.title = 'Nasa Images Api';
+app.locals.images = [...nasaImages];
+
+app.get('/api/v1/images', (request, response) => {
+  const images = app.locals.images;
+
+  return response.status(200).json({images});
 });
 
 app.listen(app.get('port'), () => {
